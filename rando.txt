@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Addo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Abhaya Libre' rel='stylesheet'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>   
+  </head>
+  <body bgcolor="#cfd9cb">
+    <div class="loader">
+        <div></div>
+    </div>
+    <div class="content">
+        <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fas fa-bars"></i>
+        </label>
+        <label class="logo"><img src="assets/Logo.jpeg"></label>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a class="active" href="#">Budgets</a></li>
+            <li><a href="settings.html">Settings</a></li>
+            <li><a href="banquest.html">Banquest</a></li>
+            <li><a href="account.html">Account</a></li>
+            <li><a href="education.html">Education</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+        </nav>
+        
+        <br><br><br>
+        <p class="budgetsTitle">My Budgets</p>
+        <br><br><br>
+        <div class="container1">
+          <div class="chart-wrap">
+            <figure class="pie-chart" style="background:
+              conic-gradient(
+                from 0deg,
+              #e6425e 0,
+              #e6425e calc(25%),
+              #42e6ad calc(22%),
+              #42e6ad calc(25% + 15%),
+              #4258e6 calc(25% + 15%),
+              #4258e6 calc(25% + 15% + 20%),
+              rgb(211, 66, 230) calc(25% + 15% + 20%),
+              rgb(211, 66, 230) calc(25% + 15% + 20% + 18%),
+              rgb(66, 194, 230) calc(25% + 15% + 20% + 18%),
+              rgb(66, 194, 230) calc(25% + 15% + 20% + 18% + 18%),
+              rgb(230, 170, 66) calc(25% + 15% + 20% + 18% + 18%),
+              rgb(230, 170, 66) calc(25% + 15% + 20% + 18% + 18% + 4%)
+                )
+            "></figure>
+            <div class="chart-info">
+              <h2>Key</h2>
+              <ol class="key">
+                <li>Leisure: 25% <span style="background-color: #e6425e"></span></li>
+                <li>Transport: 15% <span style="background-color: #42e6ad"></span></li>
+                <li>Bills/Subscription: 20% <span style="background-color: #4258e6"></span></li>
+                <li>Savings: 18% <span style="background-color: rgb(211, 66, 230)"></span></li>
+                <li>Food: 18% <span style="background-color: rgb(66, 194, 230)"></span></li>
+                <li>Custom/Others: 4% <span style="background-color: rgb(230, 170, 66)"></span></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        
+    </div>
+    <script>
+        $(window).on('load',function(){
+            $(".loader").fadeOut(3000);
+            $(".content").fadeIn(3000);
+        });
+    </script>
+  </body>
+</html>
+
+<div class="result">
+          
+  <div class="pie-chart-container">
+      <canvas 
+          id="pie-chart" 
+          class="animate-pie-chart" 
+          width="600" 
+          height="600"
+      ></canvas>
+      <ul id="pie-chart-legend"></ul>
+  </div>
+          
+</div>
+
+document.addEventListener("DOMContentLoaded",showPieChart);
+
+function showPieChart(){
+    console.log("pie-chart on load");
+
+    let sliceA = {size:350, color:"blue"};
+    let sliceB = {size:750, color:"green"};
+
+    const values=[sliceA.size,sliceB.size];
+
+    const total=values.reduce((acc,val)=>acc+val,0);
+    
+    let startAngle=0;
+    // Values of the pie chart %
+
+    const canvas=document.getElementById("pie-chart");
+    const ctx=canvas.getContext("2d");
+
+    //calc angles
+    values.forEach((value,index)=>{
+        const angle=(value/total)* Math.PI * 2;
+
+        // Draw a slice 
+        ctx.beginPath();
+        ctx.moveTo(canvas.width/2,canvas.clientHeight/2);
+        ctx.arc(
+            canvas.width/2,
+            canvas.height/2,
+            canvas.width/2,
+            startAngle,
+            startAngle +angle
+        );
+        ctx.closePath();
+
+        ctx.fillStyle=index===0 ? sliceA.color : sliceB.color;
+        ctx.fill();
+        startAngle+=angle;
+
+    });
+    // Show legend
+    const legend=document.getElementById("pie-chart-legend");
+    legend.innerHTML=`
+    <div class="legend-item">
+        <div class="legend-color" style="background-color:${sliceA.color}"></div>
+        <div class="legend-label">Total invested: $${sliceA.size}-${((sliceA.size/total)*100).toFixed(2)} %</div>
+    </div>
+    <div class="legend-item">
+        <div class="legend-color" style="background-color:${sliceB.color}"></div>
+        <div class="legend-label">Total portfolio value: $${sliceB.size}-${((sliceB.size/total)*100).toFixed(2)} %</div>
+    </div>
+    
+    `;
+}
+
+
+    <div class="textCollapse">
+      <details>
+        <summary>
+          Text
+          <span class="icon">↑</span>
+        </summary>
+        <div class="dropdown">
+          <button class="dropbtn">Aa:</button>
+          <div class="dropdown-content">
+            <a href="#">Small</a>
+            <a href="#">Medium</a>
+            <a href="#">Large</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Highlight</button>
+          <div class="dropdown-content">
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </details>
+    </div>
+    <div class="audioCollapse">
+      <details>
+        <summary>
+          Audio
+          <span class="icon">↑</span>
+        </summary>
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+      </details>
+    </div>
+    <div class="colorsCollapse">
+      <details>
+        <summary>
+          Colors
+          <span class="icon">↑</span>
+        </summary>
+        <div class="dropdown">
+          <button class="dropbtn">Text Color</button>
+          <div class="dropdown-content">
+            <a href="#">Yellow</a>
+            <a href="#">Blue</a>
+            <a href="#">Red</a>
+          </div>
+        </div>
+      </details>
+    </div>
+    <div class="notifCollapse">
+      <details>
+        <summary>
+          Notifications
+          <span class="icon">↑</span>
+        </summary>
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+      </details>
+    </div>
+    <div class="currencyCollapse">
+      <details>
+        <summary>
+          Currency
+          <span class="icon">↑</span>
+        </summary>
+        <p>
+          Select
+        </p>
+      </details>
+    </div>
